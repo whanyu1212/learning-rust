@@ -2,6 +2,24 @@
 
 Just some personal notes on learning `Rust`
 
+The notes are published as a static site via [mdBook](https://rust-lang.github.io/mdBook/) and deployed to GitHub Pages from the `main` branch. See `.github/workflows/deploy-mdbook.yml`.
+
+## Local build
+
+The Mermaid runtime is not committed — regenerate it before building locally:
+
+```bash
+cargo install mdbook mdbook-mermaid
+mdbook-mermaid install .
+mdbook build
+```
+
+For a live-reload preview:
+
+```bash
+mdbook serve
+```
+
 ## Notes
 
 ### Project Setup
