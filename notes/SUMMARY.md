@@ -15,6 +15,7 @@
 - [Language Concepts](./language-concepts.md)
     - [Rust for Python Programmers](./rust-for-python-programmers.md)
     - [Tools: Rust vs Python](./rust-tools-vs-python-tools.md)
+    - [Variables & Mutability](./rust-variables.md)
     - [Data Types](./data-types.md)
         - [Scalars & Strings](./rust-data-types.md)
         - [Collections & Refs](./rust-collections.md)
