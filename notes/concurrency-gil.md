@@ -4,6 +4,21 @@
 
 Why Python can't scale CPU-bound work across cores, and why Rust can — by design.
 
+```mermaid
+flowchart TB
+    subgraph Python["Python CPU-bound threads"]
+      T1[Thread 1] --> GIL[GIL]
+      T2[Thread 2] --> GIL
+      T3[Thread 3] --> GIL
+      GIL --> CORE1[One core at a time]
+    end
+    subgraph Rust["Rust owned data per thread"]
+      R1[Thread 1] --> C1[Core 1]
+      R2[Thread 2] --> C2[Core 2]
+      R3[Thread 3] --> C3[Core 3]
+    end
+```
+
 ## The problem: the GIL (Global Interpreter Lock)
 
 CPython (the standard Python) has a **Global Interpreter Lock** — a single mutex that allows **only one thread to execute Python bytecode at a time**. No matter how many cores you have, only one thread runs Python code at any instant.

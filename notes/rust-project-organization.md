@@ -6,6 +6,16 @@
 
 Unlike some other languages, Rust projects **do not** nest code under `src/crate_name/`. Code goes directly in `src/`, and the crate name is defined in `Cargo.toml`.
 
+```mermaid
+flowchart TD
+    A["Start flat in src/"] --> B{"Growing past ~500 lines?"}
+    B -->|No| C["Keep single files"]
+    B -->|Yes| D["Split into modules"]
+    D --> E{"Independent crates?"}
+    E -->|No| F["Stay in one package"]
+    E -->|Yes| G["Cargo workspace"]
+```
+
 ## Single Binary Project
 
 The most common structure for applications:

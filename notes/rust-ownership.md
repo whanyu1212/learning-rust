@@ -4,6 +4,12 @@
 
 The core of Rust's memory safety — and the reason circular references are nearly impossible to construct by accident.
 
+```mermaid
+graph LR
+    A["a: String"] -->|move| B["b: String"]
+    A -.->|invalid after move| X["compile error"]
+```
+
 ## The core rule
 
 Every value in Rust has **exactly one owner** at any moment. When the owner goes out of scope, the value is dropped (memory freed) automatically.
@@ -81,6 +87,12 @@ B.children -> A
 Neither count ever hits 0 → **memory leak**. This is the exact problem Rust's ownership normally prevents, now reintroduced through the back door.
 
 ## The fix: `Weak`
+
+```mermaid
+graph TD
+    P["Parent Rc"] -->|owns| C["Child Rc"]
+    C -->|Weak back-edge| P
+```
 
 The Rust-idiomatic solution is `Weak<T>` — a **non-owning** reference. It does *not* keep the value alive. Combine it with `Rc`:
 

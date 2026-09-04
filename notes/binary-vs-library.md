@@ -4,6 +4,21 @@
 
 ## What's the Difference?
 
+```mermaid
+flowchart LR
+    subgraph Binary
+      M["src/main.rs"] --> EXE["executable"]
+    end
+    subgraph Library
+      L["src/lib.rs"] --> CRATE["importable crate"]
+    end
+    subgraph Hybrid
+      L2["src/lib.rs"] --> CORE["shared logic"]
+      M2["src/main.rs"] --> CORE
+      M2 --> EXE2["CLI / app"]
+    end
+```
+
 ### Binary Project
 A **binary** is an **executable program** that you can run directly.
 
