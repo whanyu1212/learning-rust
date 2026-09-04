@@ -13,7 +13,9 @@ default-theme = "light"
 preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/whanyu1212/learning-rust"
 edit-url-template = "https://github.com/whanyu1212/learning-rust/edit/main/notes/{path}"
+additional-css = ["theme/custom.css"]
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
+smart-punctuation = true
 
 [output.html.playground]
 editable = true

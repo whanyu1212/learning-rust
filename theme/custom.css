@@ -1,0 +1,83 @@
+/* Reader-facing polish for comparison-heavy notes. */
+
+:root {
+    --content-max-width: 880px;
+}
+
+/* TL;DR lead-ins sit directly under each chapter H1. */
+#content main > h1 + blockquote {
+    margin: 1rem 0 1.5rem;
+    padding: 0.85rem 1.1rem;
+    border-inline-start: 4px solid var(--links);
+    border-radius: 0 6px 6px 0;
+    background: color-mix(in srgb, var(--links) 10%, var(--bg));
+    font-size: 1.02em;
+    line-height: 1.45;
+}
+
+#content main > h1 + blockquote p {
+    margin: 0;
+}
+
+#content main > h1 + blockquote strong:first-child {
+    color: var(--links);
+    letter-spacing: 0.02em;
+}
+
+/* Comparison tables: clearer headers, room to breathe. */
+#content main table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 1.1rem 0 1.4rem;
+}
+
+#content main thead th {
+    position: sticky;
+    top: 0;
+    background: var(--table-header-bg);
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+#content main tbody td:first-child,
+#content main thead th:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+#content main tbody tr:hover td {
+    background: color-mix(in srgb, var(--table-alternate-bg) 70%, var(--links) 8%);
+}
+
+/* Rust/Python example pairs: tighten the gap between consecutive fences. */
+#content main pre + pre {
+    margin-top: 0.45rem;
+}
+
+#content main pre {
+    border-radius: 6px;
+}
+
+/* Built-in GitHub-style admonitions. */
+#content main .blockquote-tag {
+    margin: 1.1rem 0;
+    padding: 0.65rem 0.9rem 0.75rem 1rem;
+    border-radius: 0 6px 6px 0;
+    background: color-mix(in srgb, var(--quote-bg) 85%, var(--bg));
+}
+
+#content main .blockquote-tag-title {
+    margin-bottom: 0.35rem;
+}
+
+/* Mermaid diagrams. */
+#content main .mermaid,
+#content main svg[id^="mermaid"] {
+    display: block;
+    margin: 1.25rem auto;
+    max-width: 100%;
+    overflow-x: auto;
+}
