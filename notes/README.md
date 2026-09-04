@@ -15,8 +15,8 @@ Use the sidebar for the full table of contents. Prefer this short path if you're
 
 | Section | What you'll find |
 |---------|------------------|
-| **Cargo Basics** | `init`, `new`, and when to use each |
-| **Project Structure** | binaries vs libraries, `src/` layout, `target/` |
-| **Language Concepts** | types, tools, ownership, concurrency without a GIL |
+| [Cargo Basics](./cargo-basics.md) | `init`, `new`, and when to use each |
+| [Project Structure](./project-structure.md) | binaries vs libraries, `src/` layout, `target/` |
+| [Language Concepts](./language-concepts.md) | types, tools, ownership, concurrency without a GIL |
 
 Each chapter opens with a **TL;DR**, then tables and side-by-side Rust/Python examples where comparison helps.
