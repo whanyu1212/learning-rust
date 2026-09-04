@@ -73,7 +73,8 @@ cargo build --release        # Optimized build
 - ✅ Entry point is `src/main.rs`
 - ❌ Cannot be imported by other projects (by default)
 
-### Use Cases
+<details>
+<summary>Binary use cases</summary>
 
 - Command-line tools (like `grep`, `git`, `cargo`)
 - Web servers and APIs
@@ -81,6 +82,8 @@ cargo build --release        # Optimized build
 - Games
 - Scripts and automation tools
 - Any standalone program
+
+</details>
 
 ---
 
@@ -192,7 +195,8 @@ cargo run                # ERROR: no binary target in a library package!
 - ❌ Cannot be executed directly
 - ❌ Does not produce a standalone executable
 
-### Use Cases
+<details>
+<summary>Library use cases</summary>
 
 - Utility functions and helpers
 - Framework components
@@ -201,6 +205,8 @@ cargo run                # ERROR: no binary target in a library package!
 - HTTP clients (like `reqwest`)
 - Async runtimes (like `tokio`)
 - Any code meant to be reused across projects
+
+</details>
 
 ---
 
@@ -236,7 +242,8 @@ my_project/
     └── main.rs     # Binary (CLI wrapper)
 ```
 
-### Example
+<details>
+<summary>Full hybrid example (<code>lib.rs</code> + <code>main.rs</code>)</summary>
 
 **src/lib.rs:**
 ```rust
@@ -283,6 +290,8 @@ fn main() {
 }
 ```
 
+</details>
+
 ### Benefits of Hybrid Approach
 
 1. **Separation of concerns**: Core logic in `lib.rs`, UI/CLI in `main.rs`
@@ -299,11 +308,10 @@ fn main() {
 
 ---
 
-## Multiple Binaries
+<details>
+<summary>Multiple binaries (<code>src/bin/</code>)</summary>
 
 You can have multiple binary targets in one project:
-
-### Structure
 
 ```
 my_project/
@@ -317,16 +325,12 @@ my_project/
 │       └── admin.rs        # Additional binary
 ```
 
-### Running Different Binaries
-
 ```bash
 cargo run                   # Runs src/main.rs
 cargo run --bin server      # Runs src/bin/server.rs
 cargo run --bin client      # Runs src/bin/client.rs
 cargo run --bin admin       # Runs src/bin/admin.rs
 ```
-
-### Example Binary in bin/
 
 **src/bin/server.rs:**
 ```rust
@@ -339,13 +343,12 @@ fn main() {
 }
 ```
 
----
+</details>
 
-## Examples Directory
+<details>
+<summary>Examples directory</summary>
 
 Both binaries and libraries can have example programs:
-
-### Structure
 
 ```
 my_project/
@@ -358,15 +361,11 @@ my_project/
     └── demo.rs
 ```
 
-### Running Examples
-
 ```bash
 cargo run --example basic
 cargo run --example advanced
 cargo run --example demo
 ```
-
-### Example File
 
 **examples/basic.rs:**
 ```rust
@@ -378,6 +377,8 @@ fn main() {
     println!("Result: {}", result);
 }
 ```
+
+</details>
 
 ---
 
@@ -405,10 +406,10 @@ fn main() {
 
 ---
 
-## Quick Commands Reference
+<details>
+<summary>Quick commands reference</summary>
 
-### Binary Project
-
+**Binary**
 ```bash
 cargo init              # Create binary
 cargo run               # Compile and run
@@ -416,8 +417,7 @@ cargo build             # Just compile
 cargo build --release   # Optimized build
 ```
 
-### Library Project
-
+**Library**
 ```bash
 cargo init --lib        # Create library
 cargo build             # Compile
@@ -426,8 +426,7 @@ cargo doc --open        # Generate docs
 cargo publish           # Publish to crates.io
 ```
 
-### Hybrid Project
-
+**Hybrid**
 ```bash
 cargo run               # Run the binary
 cargo test              # Test the library
@@ -435,40 +434,34 @@ cargo build --lib       # Build only library
 cargo build --bin name  # Build specific binary
 ```
 
----
+</details>
 
-## Converting Between Types
+<details>
+<summary>Converting between binary and library</summary>
 
-### Binary → Add Library
-
-Just create `src/lib.rs`:
+**Binary → add library** — create `src/lib.rs`:
 
 ```bash
 # You already have src/main.rs
 touch src/lib.rs
 ```
 
-Now you have both!
-
-### Library → Add Binary
-
-Create `src/main.rs`:
+**Library → add binary** — create `src/main.rs` with a `main()`:
 
 ```bash
 # You already have src/lib.rs
 touch src/main.rs
 ```
 
-Add a `main()` function and you're done!
-
-### Check Current Type
-
+**Check current type**
 ```bash
 ls src/
 # main.rs = binary
 # lib.rs = library
 # both = hybrid
 ```
+
+</details>
 
 ---
 

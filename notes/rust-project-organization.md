@@ -106,7 +106,8 @@ fn main() {
 
 ## Module Organization Patterns
 
-### Flat Structure (Small Projects)
+<details>
+<summary>Flat structure (small projects)</summary>
 
 ```
 src/
@@ -117,7 +118,10 @@ src/
 └── utils.rs
 ```
 
-### Hierarchical Structure (Medium Projects)
+</details>
+
+<details>
+<summary>Hierarchical structure (medium projects)</summary>
 
 ```
 src/
@@ -136,7 +140,10 @@ src/
     └── helpers.rs
 ```
 
-### Feature-Based Structure (Large Projects)
+</details>
+
+<details>
+<summary>Feature-based structure (large projects)</summary>
 
 ```
 src/
@@ -158,9 +165,14 @@ src/
     └── types.rs
 ```
 
+</details>
+
 ## Workspace (Multiple Crates)
 
-For large projects with multiple related packages:
+For large projects with multiple related packages: share dependencies, build everything with one command, and keep internal crates in sync.
+
+<details>
+<summary>Workspace layout and manifest</summary>
 
 ```
 my_workspace/
@@ -192,14 +204,14 @@ members = [
 resolver = "2"
 ```
 
-**Benefits:**
-- Share dependencies across crates
-- Build all crates with one command
-- Internal dependencies stay in sync
+</details>
 
 ## Module Declaration
 
-### Single-File Module
+<details>
+<summary>Single-file and multi-file modules</summary>
+
+### Single-file module
 
 `src/config.rs`:
 ```rust
@@ -215,7 +227,7 @@ mod config;  // Looks for src/config.rs
 use config::Config;
 ```
 
-### Multi-File Module (Directory)
+### Multi-file module (directory)
 
 `src/database/mod.rs`:
 ```rust
@@ -233,7 +245,7 @@ mod database;
 use database::Connection;
 ```
 
-### Modern Alternative (Rust 2018+)
+### Modern alternative (Rust 2018+)
 
 Instead of `mod.rs`, you can use a file with the directory name:
 
@@ -254,7 +266,10 @@ mod queries;
 pub use connection::Connection;
 ```
 
-## Common Project Files
+</details>
+
+<details>
+<summary>Common project files and special directories</summary>
 
 ```
 my_project/
@@ -271,8 +286,6 @@ my_project/
 └── .git/               # Git repository
 ```
 
-## Special Directories
-
 - **`src/`** - Source code, required
 - **`tests/`** - Integration tests (each file is a separate test binary)
 - **`benches/`** - Benchmark tests (requires `cargo bench`)
@@ -280,7 +293,10 @@ my_project/
 - **`target/`** - Build output (automatically created, should be gitignored)
 - **`bin/`** - Additional binary targets (alternative to single `main.rs`)
 
-## Multiple Binaries
+</details>
+
+<details>
+<summary>Multiple binaries under <code>src/bin/</code></summary>
 
 ```
 src/
@@ -291,16 +307,18 @@ src/
     └── admin.rs        # Binary 3
 ```
 
-**Usage:**
 ```bash
 cargo run --bin server
 cargo run --bin client
 cargo run --bin admin
 ```
 
-## Testing Structure
+</details>
 
-### Unit Tests
+<details>
+<summary>Unit vs integration test layout</summary>
+
+### Unit tests
 
 In the same file as the code:
 
@@ -321,7 +339,7 @@ mod tests {
 }
 ```
 
-### Integration Tests
+### Integration tests
 
 Separate files in `tests/`:
 
@@ -332,6 +350,8 @@ tests/
 ├── api_tests.rs
 └── database_tests.rs
 ```
+
+</details>
 
 ## Real-World Examples
 
