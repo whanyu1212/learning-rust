@@ -48,6 +48,26 @@ byte = ord("A")
 > [!WARNING]
 > Python `int` never overflows; Rust integers wrap in release mode and panic in debug mode on overflow. Use `wrapping_*` / `checked_*` / `saturating_*` methods when overflow is possible.
 
+### Picking a size
+
+The number in the type name is **bits of storage**, not how important the value is. Python `int` grows as needed; a Rust `i32` is always 4 bytes.
+
+Start with the default unless the domain forces a different width.
+
+| Situation | Pick | Why |
+|-----------|------|-----|
+| Everyday integers (counters, most locals) | **`i32`** | compiler default; plenty of range |
+| Indexes, `len()`, array/`Vec` subscripts | **`usize`** | unsigned, pointer-sized; APIs require it |
+| Bytes, ASCII, 0–255, buffers | **`u8`** | one byte |
+| File sizes, IDs, timestamps, “could be huge” | **`u64` / `i64`** | `i32` tops out around 2 billion |
+| Need negatives | **`i…`** | `u…` cannot go below 0 |
+| Never negative and you mean it | **`u…`** | documents the invariant |
+| Everyday floats | **`f64`** | same as Python `float` |
+| Lots of floats (graphics, ML, audio) | **`f32`** | half the memory, less precision |
+| Bigger than `i64` on purpose | **`i128`** or a crate | rare; unlimited Python `int` is not built in |
+
+If you are unsure: **`i32`** and **`f64`**. Switch when the compiler or the data range tells you to — `usize` for indexes is the common forced switch.
+
 ### Floats, Bools, Chars
 
 ```rust
@@ -126,7 +146,7 @@ Conversions you'll use constantly:
 
 ## Key Takeaways
 
-1. Widths are explicit (`i32` vs `u64`, `f32` vs `f64`) — Python hides this; Rust makes you choose.
+1. Widths are explicit (`i32` vs `u64`, `f32` vs `f64`) — Python hides this; Rust makes you choose. Default to `i32` / `f64`; use `usize` for indexes.
 2. Tuples and arrays are fixed-size value types; growable storage is `Vec` (part 2).
 3. `String` (owned) vs `&str` (borrowed) previews the ownership system — learn the split now and borrowing later is easier.
 
