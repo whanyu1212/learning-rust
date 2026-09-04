@@ -18,7 +18,7 @@ The difference: in Python any variable can be `None`; in Rust only `Option<T>` c
 
 | Operation | What it does |
 |-----------|--------------|
-| `unwrap` / `expect` | Get the value or panic — quick prototypes only |
+| `unwrap` / `expect` | Get the value or panic — quick prototypes only. See [Ownership](./rust-ownership.md#unwrap-pulling-a-value-out-of-result--option) |
 | `unwrap_or(default)` | Value or fallback |
 | `map` / `and_then` | Transform without unwrapping |
 | `match` | Exhaustive handling of `Some` / `None` |

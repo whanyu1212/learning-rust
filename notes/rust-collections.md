@@ -67,7 +67,7 @@ let mut z = 10;
 let w = &mut z;    // exclusive borrow
 ```
 
-The rule that trips up Python programmers: you can have **many** `&T` *or* **one** `&mut T` — never both at once. The compiler rejects violations. See [Ownership](./rust-ownership.md) for why.
+The rule that trips up Python programmers: you can have **many** `&T` *or* **one** `&mut T` — never both at once. The compiler rejects violations. See [Ownership](./rust-ownership.md#when-to-own-vs-borrow) for when to own vs borrow, and [shared vs exclusive](./rust-ownership.md#shared-vs-exclusive-borrows) for which borrow to pick.
 
 > [!WARNING]
 > Raw pointers (`*const T`, `*mut T`) skip borrow checking entirely and require an `unsafe` block to dereference. Reach for references first.

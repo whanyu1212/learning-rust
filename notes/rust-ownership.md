@@ -1,6 +1,6 @@
 # Rust Ownership
 
-> **TL;DR** — Every value has exactly one owner; when the owner drops, the value frees. This makes accidental cycles unrepresentable — you only opt into shared ownership deliberately.
+> **TL;DR** — Every value has exactly one owner; when the owner drops, the value frees. Borrow to *use* a value, own to *keep* it; `&T` to read, `&mut T` to write; never both at once.
 
 The core of Rust's memory safety — and the reason circular references are nearly impossible to construct by accident.
 
@@ -19,6 +19,90 @@ let a = String::from("hello"); // `a` owns the String
 let b = a;                     // ownership MOVES to `b`; `a` is now invalid
 // println!("{a}");            // compile error — use after move
 ```
+
+Python names are labels that point at objects. Rust names are storage that **owns** the value. After a move, the old name is gone — there is no second label on the same object.
+
+## When to own vs borrow
+
+Ask: *after this function/block returns, should the value still exist here?*
+
+| If you need to… | Use | Why |
+|-----------------|-----|-----|
+| Keep it, store it, return it later | **own** (`T`) | you are the owner |
+| Read or use it temporarily, then forget it | **borrow** (`&T` or `&mut T`) | the caller still owns it |
+| Give it away | **move** (pass `T`) | ownership transfers |
+
+Function signatures make the choice:
+
+```rust
+fn len(s: &str) -> usize { s.len() }          // borrow — just look
+fn shout(s: &mut String) { s.push_str("!"); } // exclusive borrow — mutate in place
+fn take(s: String) -> String { s }            // own — you keep / return it
+```
+
+```rust
+let mut name = String::from("hi");
+
+len(&name);        // look, still yours
+shout(&mut name);  // mutate, still yours
+let gone = take(name); // moved — `name` is invalid after this
+```
+
+**Borrowed when you needed to own** — a struct cannot store `&str` without a lifetime that outlives the struct. Store `String` instead.
+
+**Owned when a borrow was enough** — `fn is_empty(s: String)` steals the string for a yes/no question. Take `&str`.
+
+## Shared vs exclusive borrows
+
+Once you borrow, pick the permission. See [reference types](./rust-collections.md#reference-types) for the type table.
+
+| Borrow | Permission | How many at once |
+|--------|------------|------------------|
+| `&T` | read | many |
+| `&mut T` | read **and** write | **exactly one**, and no `&T` at the same time |
+
+- **`&T`** — default. Print, search, hash, parse, length.
+- **`&mut T`** — only when you change the caller's value in place. Push, insert, sort.
+
+The compiler's invariant: **either** many readers **or** one writer, never both. That's how Rust bans data races without a GIL — [Concurrency](./concurrency-gil.md) is the same rule on threads.
+
+`&` is not a copy. It is a view: pointer + (for slices) length into data owned elsewhere. `"42"` is already `&str` — a borrow of a literal in the binary. `&s` on a `String` produces a `&str` into that heap buffer.
+
+## Copy types skip the dilemma
+
+`i32`, `bool`, `f64`, `char` implement `Copy`. Passing them duplicates the bits; the original stays valid. No borrow needed:
+
+```rust
+fn add(a: i32, b: i32) -> i32 { a + b }
+```
+
+`String`, `Vec`, and other heap types do **not** copy. Passing them moves unless you borrow (or call `.clone()`).
+
+## `unwrap`: pulling a value out of `Result` / `Option`
+
+Fallible work returns a wrapper, not the inner value. `parse` returns `Result<i32, ParseIntError>` because `"hello"` is not an integer.
+
+`unwrap()` means: if `Ok(v)` / `Some(v)`, give me `v`; if `Err` / `None`, **panic**. Fine for prototypes and inputs you have already validated. In real code prefer `match`, `?`, `expect("why this must succeed")`, or `unwrap_or(default)`.
+
+```rust
+let n: i32 = "42".parse().unwrap();           // Result → i32, or crash
+let n: i32 = "42".parse().expect("digits");   // same, with a message
+let n: i32 = "x".parse().unwrap_or(0);        // fallback
+```
+
+Python parallel: `int("42")` raises `ValueError` on junk; `unwrap` is the crash-on-failure path. Full operation table: [`Option` / `Result`](./rust-custom-types.md).
+
+## Shadowing
+
+`let` on an existing name creates a **new** variable. The old binding is hidden, so the type can change — this is not mutation of the first value:
+
+```rust
+let input = "42";                              // &str
+let input = input.parse::<i32>().unwrap();     // new `input`: i32
+let input = input * 2;                         // new `input`: i32, value 84
+```
+
+`parse` borrows the `&str` (`&self`) and returns an owned `i32`. Each `let input` is a fresh owner.
 
 ## Why this kills circular references
 
@@ -122,9 +206,10 @@ When the last strong `Rc` drops, the `Node` frees even if weak refs still exist.
 
 ## Key takeaways
 
-1. One owner per value; borrows are temporary and lifetime-checked — cycles are unrepresentable by default.
-2. Need shared ownership? Reach for `Rc` (single-threaded) or `Arc` (thread-safe) — then break back-edges with `Weak`.
-3. `upgrade()` on a `Weak` returns `Option` — the parent may already be gone.
+1. Borrow to *use*, own to *keep*; `&` to *read*, `&mut` to *write*; never both at once.
+2. One owner per value; borrows are temporary and lifetime-checked — cycles are unrepresentable by default.
+3. Need shared ownership? Reach for `Rc` (single-threaded) or `Arc` (thread-safe) — then break back-edges with `Weak`.
+4. `unwrap` pulls `Ok`/`Some` apart and panics otherwise; `upgrade()` on a `Weak` returns `Option` — the parent may already be gone.
 
 ## Next
 
