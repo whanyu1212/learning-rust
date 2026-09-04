@@ -113,3 +113,41 @@
     padding-bottom: 0.45rem;
     border-bottom: 1px solid var(--table-border-color);
 }
+
+/*
+ * Accent polish for the configured themes (light + navy).
+ * Keep stock structure; nudge accents toward a warmer Rust copper.
+ */
+.light {
+    --links: #b7410e;
+    --sidebar-active: #b7410e;
+    --quote-bg: hsl(20, 45%, 96%);
+    --quote-border: hsl(20, 30%, 88%);
+    --table-header-bg: hsl(20, 35%, 92%);
+    --inline-code-color: #9a3412;
+    --sidebar-header-border-color: #dea584;
+}
+
+.navy {
+    --links: #dea584;
+    --sidebar-active: #dea584;
+    --quote-bg: hsl(220, 22%, 14%);
+    --quote-border: hsl(220, 18%, 22%);
+    --table-header-bg: hsl(220, 20%, 20%);
+    --inline-code-color: #f0c2a0;
+    --sidebar-header-border-color: #dea584;
+}
+
+#content main a {
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+}
+
+#content main pre {
+    border: 1px solid color-mix(in srgb, var(--table-border-color) 80%, var(--links) 20%);
+}
+
+#sidebar .chapter-item.active,
+#sidebar .chapter li.active > a {
+    font-weight: 650;
+}
