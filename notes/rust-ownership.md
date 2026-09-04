@@ -66,7 +66,7 @@ Once you borrow, pick the permission. See [reference types](./rust-collections.m
 
 The compiler's invariant: **either** many readers **or** one writer, never both. That's how Rust bans data races without a GIL — [Concurrency](./concurrency-gil.md) is the same rule on threads.
 
-`&` is not a copy. It is a view: pointer + (for slices) length into data owned elsewhere. `"42"` is already `&str` — a borrow of a literal in the binary. `&s` on a `String` produces a `&str` into that heap buffer.
+`&` is not a copy. It is a view: pointer + (for slices) length into data owned elsewhere. `"42"` is already `&str` — a borrow of a literal in the binary (`&'static str`; see [Scalars & Strings](./rust-data-types.md#static-str)). `&s` on a `String` produces a `&str` into that heap buffer, with a shorter lifetime.
 
 ## Copy types skip the dilemma
 

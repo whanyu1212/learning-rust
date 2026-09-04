@@ -141,14 +141,44 @@ Conversions you'll use constantly:
 | `&str` → `String` | `String::from(s)` or `s.to_string()` |
 | `String` → `&str` | `&s` or `&s[..]` (deref coercion) |
 
+### `&'static str`
+
+`'static` is a **lifetime**: how long a borrow is allowed to last. `&'static str` means “a `&str` that is valid for the whole program.”
+
+String literals are `'static` because the bytes live in the binary, not on the heap:
+
+```rust
+pub fn hello() -> &'static str {
+    "Hello, World!"   // baked into the program; never freed
+}
+```
+
+Python parallel: a string literal is an interned `str` that lasts as long as the process. Rust writes that down as `'static`. You rarely invent `'static` yourself — returning a literal is enough for the compiler to infer it.
+
+Not every `&str` is `'static`. A slice of a `String` only lasts as long as that `String`:
+
+```rust
+fn first_word(s: &str) -> &str {  // tied to `s`, not 'static
+    s.split_whitespace().next().unwrap()
+}
+```
+
+| Type | Lives until |
+|------|-------------|
+| `&'static str` (`"hi"`) | process exit |
+| `&str` from `&some_string` | the `String` is dropped |
+| `String` | its owner is dropped |
+
+A struct that stores `&str` needs *some* lifetime; storing `&'static str` is the special case that only works for literals (or leaked memory). Prefer an owned `String` if the text is built at runtime — see [Ownership](./rust-ownership.md#when-to-own-vs-borrow).
+
 > [!NOTE]
-> `&str` is your first encounter with borrowing: the literal's data is owned elsewhere and you're viewing it. Part 2 generalizes this to [all reference types](./rust-collections.md#reference-types), and [Ownership](./rust-ownership.md) explains why the distinction exists.
+> `&str` is your first encounter with borrowing: the literal's data is owned elsewhere and you're viewing it. `'static` is the name for “elsewhere = the binary, forever.” Part 2 generalizes this to [all reference types](./rust-collections.md#reference-types), and [Ownership](./rust-ownership.md) explains why the distinction exists.
 
 ## Key Takeaways
 
 1. Widths are explicit (`i32` vs `u64`, `f32` vs `f64`) — Python hides this; Rust makes you choose. Default to `i32` / `f64`; use `usize` for indexes.
 2. Tuples and arrays are fixed-size value types; growable storage is `Vec` (part 2).
-3. `String` (owned) vs `&str` (borrowed) previews the ownership system — learn the split now and borrowing later is easier.
+3. `String` (owned) vs `&str` (borrowed) previews the ownership system — learn the split now and borrowing later is easier. `"hi"` is `&'static str`: a borrow that lasts the whole program.
 
 ## Next
 
