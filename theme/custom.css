@@ -4,6 +4,17 @@
     --content-max-width: 880px;
 }
 
+/* Subtle branding under the menu bar. */
+.book-brand-tagline {
+    margin: 0;
+    padding: 0.35rem var(--page-padding) 0.55rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    color: var(--sidebar-fg);
+    opacity: 0.85;
+    border-bottom: 1px solid var(--table-border-color);
+}
+
 /* TL;DR lead-ins sit directly under each chapter H1. */
 #content main > h1 + blockquote {
     margin: 1rem 0 1.5rem;
