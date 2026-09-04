@@ -2,24 +2,19 @@
 
 Exercism keeps each exercise at `rust/<slug>/` so `exercism submit` still works.
 
-The CLI will not download an exercise until it is **unlocked** on the site.
-Start with `hello-world`, submit it, then download the next unlocked one:
+Progress (attempted vs not): [STATUS.md](./STATUS.md).
 
 ```bash
-exercism download --track rust --exercise hello-world
-cd rust/hello-world
+cd rust/<slug>
 cargo test
 exercism submit
 ```
 
 The CLI workspace is this `exercism/` directory.
 
-When you have a choice, prefer this order: syllabus (concept) exercises if
-they appear, then practice exercises in the track’s official `config.json`
-order. The Rust syllabus is still a work in progress on Exercism
-(`concept_exercises` is not enabled), so most of the track is practice.
+## Concept / syllabus (still locked)
 
-## 1. Concept / syllabus
+These teach concepts in prerequisite order. The public Rust track has not enabled them yet.
 
 | # | Slug | Teaches |
 |---|------|---------|
@@ -34,10 +29,7 @@ order. The Rust syllabus is still a work in progress on Exercism
 | 9 | `magazine-cutout` | HashMap entry API |
 | 10 | `rpn-calculator` | vec as stack |
 
-Skipped: `csv-builder` (WIP).
+## Practice (track order)
 
-## 2. Practice (easy → later difficulty, track order)
-
-See `rust/` for the downloaded crates. Official practice order starts with
-`hello-world`, `reverse-string`, `gigasecond`, then mixed difficulties as on
-[the Rust track](https://exercism.org/tracks/rust/exercises).
+Start of the official list: `hello-world`, `reverse-string`, `gigasecond`, `clock`, …
+See [STATUS.md](./STATUS.md) for everything currently on disk.
