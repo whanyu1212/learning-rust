@@ -1,5 +1,7 @@
 # Concurrency: Python's GIL Ceiling vs Rust
 
+> **TL;DR** — Python threads serialize on the GIL; Rust threads run truly parallel because ownership + Send/Sync rule out data races at compile time.
+
 Why Python can't scale CPU-bound work across cores, and why Rust can — by design.
 
 ## The problem: the GIL (Global Interpreter Lock)
@@ -94,6 +96,8 @@ You still use `Mutex`/`RwLock` for *shared mutable* state. But the difference is
 | Sharing mutable state | GIL protects it (slowly) | Explicit `Mutex`/`Arc` — compiler checks it |
 | Why no lock needed | — | Ownership means data isn't shared unless you choose |
 
-## Key takeaway
+## Key takeaways
 
-Python's GIL serializes all threads because its memory model needs protection; Rust has no heap-wide lock because **ownership means data is only shared when you explicitly allow it**, and the compiler enforces thread-safety at build time instead of paying a lock on every operation.
+1. Python's GIL serializes all threads — CPU-bound parallelism means paying for `multiprocessing` + IPC.
+2. Rust has no global lock: ownership keeps thread data separate, `Send`/`Sync` gate sharing at compile time.
+3. Shared mutable state still needs `Mutex`/`Arc` — the difference is it is opt-in per value, not paid on every operation.

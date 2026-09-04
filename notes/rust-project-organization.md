@@ -1,5 +1,7 @@
 # Rust Project Organization
 
+> **TL;DR** — Code lives directly in src/ (no src/crate_name/ nesting). Start flat, split into modules past ~500 lines, reach for workspaces only for truly independent crates.
+
 ## Key Principle
 
 Unlike some other languages, Rust projects **do not** nest code under `src/crate_name/`. Code goes directly in `src/`, and the crate name is defined in `Cargo.toml`.
@@ -328,7 +330,7 @@ tests/
 - **serde** - Library with derive macro in separate crate
 - **cargo** - Large workspace with feature-based organization
 
-## Best Practices
+## Key takeaways
 
 1. Start simple - flat structure with a few files
 2. Create modules when files get too large (>500 lines)
@@ -337,3 +339,7 @@ tests/
 5. Use workspaces for truly independent components
 6. Keep module trees shallow (2-3 levels deep)
 7. Use `pub use` to re-export important types at module root
+
+## Next
+
+- [The target/ Folder](./target-folder.md) — where the builds of this layout actually land on disk.

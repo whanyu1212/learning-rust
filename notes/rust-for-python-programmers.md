@@ -1,5 +1,7 @@
 # Rust for Python Programmers
 
+> **TL;DR** — Rust moves Python's runtime answers to compile time: types checked before running, memory freed deterministically, None and errors as explicit types.
+
 A side-by-side quick reference of the key differences when moving from Python to Rust.
 
 | Concept | Python | Rust | Key Difference |
@@ -22,3 +24,14 @@ A side-by-side quick reference of the key differences when moving from Python to
 - **Left column** — the Python way you already know.
 - **Middle column** — the Rust equivalent for the same concept.
 - **Right column** — the practical consequence of the difference.
+
+## Key takeaways
+
+1. Rust checks at compile time what Python checks at runtime — types, borrow validity, thread safety.
+2. `Option` and `Result` replace `None`-anywhere and exceptions with explicit, must-handle types.
+3. Cargo replaces six-plus Python tools with one; the compiler replaces mypy entirely.
+
+## Next
+
+- [Tools: Rust vs Python](./rust-tools-vs-python-tools.md) — the one-tool (`cargo`) vs many-tools story behind the table rows above.
+- [Data Types: Scalars & Strings](./rust-data-types.md) — start the type system from the `Typing` row.

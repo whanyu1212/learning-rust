@@ -1,5 +1,7 @@
 # Rust Tools vs Python Tools
 
+> **TL;DR** — One tool (cargo) replaces pip + black + flake8 + mypy + pytest + sphinx. Type checking and formatting come built in, not bolted on.
+
 A side-by-side comparison of the everyday tooling when moving from Python to Rust.
 
 | Purpose | Python | Rust |
@@ -37,3 +39,7 @@ Rust's tooling is **unified into Cargo** — one tool handles package management
 2. **No virtual env needed.** Cargo scopes dependencies per-project in `Cargo.lock` — no `venv`/`conda` activation dance.
 3. **One tool, not many.** Learning `cargo` replaces learning pip + black + flake8 + mypy + pytest + sphinx.
 4. **No REPL.** The Rust workflow is compile-and-run (or `cargo test`); for quick experiments, use the Rust Playground.
+
+## Next
+
+- [Data Types: Scalars & Strings](./rust-data-types.md) — meet the types the compiler is checking for you.

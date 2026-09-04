@@ -3,10 +3,30 @@ title = "Rust Learning Notes"
 authors = ["hanyuwu"]
 language = "en"
 src = "notes"
-description = "Learning notes for moving from Python to Rust."
+description = "Learning notes for moving from Python to Rust: Cargo basics, project structure, and core language concepts with side-by-side comparisons."
+
+[build]
+create-missing = false
 
 [output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/whanyu1212/learning-rust"
+edit-url-template = "https://github.com/whanyu1212/learning-rust/edit/main/notes/{path}"
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+[output.html.playground]
+editable = true
+copyable = true
+
+[output.html.search]
+enable = true
+
+[output.html.print]
+enable = true
+
+[output.html.fold]
+enable = true
 
 [preprocessor.mermaid]
 command = "mdbook-mermaid"

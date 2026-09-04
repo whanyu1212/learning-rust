@@ -1,89 +1,62 @@
-# Cargo Init
+# cargo init
 
-Initialize a new Cargo package in an existing directory.
+> **TL;DR** — Run `cargo init` when you're already inside a directory and want to turn it into a Rust package.
+
+Initialize a Cargo package in an **existing directory**.
+
+> [!NOTE]
+> `cargo init` and `cargo new` accept the same options. For the full option reference, see [Init vs New](./cargo-comparison.md).
 
 ## Basic Usage
 
 ```bash
+mkdir my_project && cd my_project
 cargo init
 ```
 
-Creates a new Rust project in the current directory with default settings (binary application).
-
-## Common Options
-
-### Binary vs Library
+Creates a binary package in the current directory by default. To initialize a different directory instead, pass its path (defaults to `.`):
 
 ```bash
-# Create a binary (application) - this is the default
-cargo init --bin
-
-# Create a library
-cargo init --lib
-```
-
-### Specify Path
-
-```bash
-# Initialize in a specific directory
 cargo init path/to/directory
 ```
 
-### Set Package Name
+## Binary or Library
 
 ```bash
-# Set custom package name (defaults to directory name)
-cargo init --name my_custom_name
-```
-
-### Specify Rust Edition
-
-```bash
-# Use a specific Rust edition
-cargo init --edition 2021
-cargo init --edition 2024
-
-# Available editions: 2015, 2018, 2021, 2024
-```
-
-### Version Control
-
-```bash
-# Initialize with git (default)
-cargo init --vcs git
-
-# Initialize with other VCS
-cargo init --vcs hg      # Mercurial
-cargo init --vcs pijul   # Pijul
-cargo init --vcs fossil  # Fossil
-
-# Don't initialize any VCS
-cargo init --vcs none
+cargo init          # binary (default)
+cargo init --bin    # binary, explicit
+cargo init --lib    # library
 ```
 
 ## Examples
 
 ```bash
-# Create a binary app in current directory
+# Binary in the current directory
 cargo init
 
-# Create a library with custom name
+# Library with a custom package name
 cargo init --lib --name my_library
 
-# Create a 2024 edition binary without git
+# 2024 edition binary, no version control
 cargo init --edition 2024 --vcs none
-
-# Initialize in specific directory with custom name
-cargo init my_project --name awesome_project
 ```
 
 ## What Gets Created
 
-- `Cargo.toml` - Package manifest
-- `src/main.rs` - Entry point for binary (if `--bin`)
-- `src/lib.rs` - Entry point for library (if `--lib`)
-- `.gitignore` - Git ignore file (if VCS is enabled)
+- `Cargo.toml` — package manifest
+- `src/main.rs` — entry point (binary) or `src/lib.rs` (library)
+- `.gitignore` — ignore file (if VCS is enabled)
+- `.git/` — repository (if `--vcs git` and the directory isn't already a repo)
 
-## Key Difference from `cargo new`
+## See also
 
-`cargo init` works in an existing directory, while `cargo new` creates a new directory for the project.
+- [cargo new](./cargo-new.md) — create a project *and* its directory in one command
+- [Init vs New](./cargo-comparison.md) — full option reference and side-by-side workflows
+
+## Try it
+
+```bash
+mkdir try-init && cd try-init
+cargo init
+cargo run
+```

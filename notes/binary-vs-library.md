@@ -1,5 +1,7 @@
 # Binary vs Library Projects in Rust
 
+> **TL;DR** — Binary (src/main.rs) = a program you run; library (src/lib.rs) = code others import. Most real-world projects ship both in one crate.
+
 ## What's the Difference?
 
 ### Binary Project
@@ -160,8 +162,11 @@ fn main() {
 cargo build              # Compile the library
 cargo test               # Run tests
 cargo doc --open         # Generate and view documentation
-cargo run                # ❌ ERROR: no main function!
+cargo run                # ERROR: no binary target in a library package!
 ```
+
+> [!NOTE]
+> `cargo run` needs a binary target, so it fails on a pure library. Verify libraries with `cargo test` and document them with `cargo doc`.
 
 ### Characteristics
 
@@ -452,10 +457,14 @@ ls src/
 
 ---
 
-## Summary
+## Key takeaways
 
 - **Binary** = Executable program with `src/main.rs` and `fn main()`
 - **Library** = Reusable code with `src/lib.rs`, no `main()`
 - **Hybrid** = Both `src/main.rs` and `src/lib.rs` in same project
 - Use `cargo run` for binaries, `cargo test` for libraries
 - Real-world projects often use the hybrid approach
+
+## Next
+
+- [Project Organization](./rust-project-organization.md) — how to lay out modules, tests, and workspaces around these targets.

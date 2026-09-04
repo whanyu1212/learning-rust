@@ -1,5 +1,7 @@
 # Target Folder Structure
 
+> **TL;DR** — target/ is Cargo's scratch space: debug/ for fast dev builds, release/ for optimized output. Safe to delete, never to commit.
+
 The `target/` folder is where Cargo stores all build artifacts and compilation outputs.
 
 ## Top-level Structure
@@ -80,9 +82,11 @@ debug/
 
 ## Important Notes
 
+> [!WARNING]
+> Never commit `target/` — it can grow to hundreds of MB and is fully regenerable. Keep `/target` in `.gitignore`.
+
 - **Safe to delete** - The entire `target/` folder can be deleted and regenerated
 - **Large size** - Can grow to hundreds of MB with many dependencies
-- **Never commit** - Should always be in `.gitignore`
 - **Build profiles** - You can also have custom profiles like `target/test/`, `target/bench/`
 
 ## Common Commands
@@ -103,3 +107,13 @@ cargo build --release
 # Clean all build artifacts
 cargo clean
 ```
+
+## Key takeaways
+
+1. `target/debug/` = fast unoptimized dev builds; `target/release/` = slow optimized production builds.
+2. `deps/`, `.fingerprint/`, and `incremental/` exist to make rebuilds fast — you can ignore them day to day.
+3. Delete `target/` freely when disk is tight; `cargo build` regenerates it.
+
+## Next
+
+- [Rust for Python Programmers](./rust-for-python-programmers.md) — from Cargo mechanics to language concepts.

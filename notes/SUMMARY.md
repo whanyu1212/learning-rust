@@ -4,20 +4,22 @@
 
 # Cargo Basics
 
-- [cargo-init](./cargo-init.md)
-- [cargo-new](./cargo-new.md)
-- [cargo-comparison](./cargo-comparison.md)
+- [cargo init](./cargo-init.md)
+- [cargo new](./cargo-new.md)
+- [Init vs New](./cargo-comparison.md)
 
 # Project Structure
 
-- [binary-vs-library](./binary-vs-library.md)
-- [rust-project-organization](./rust-project-organization.md)
-- [target-folder](./target-folder.md)
+- [Binary vs Library](./binary-vs-library.md)
+- [Project Organization](./rust-project-organization.md)
+- [The target/ Folder](./target-folder.md)
 
 # Language Concepts
 
-- [rust-for-python-programmers](./rust-for-python-programmers.md)
-- [rust-tools-vs-python-tools](./rust-tools-vs-python-tools.md)
-- [concurrency-gil](./concurrency-gil.md)
-- [rust-ownership](./rust-ownership.md)
-- [rust-data-types](./rust-data-types.md)
+- [Rust for Python Programmers](./rust-for-python-programmers.md)
+- [Tools: Rust vs Python](./rust-tools-vs-python-tools.md)
+- [Data Types: Scalars & Strings](./rust-data-types.md)
+- [Data Types: Collections & Refs](./rust-collections.md)
+- [Data Types: Option, Result & Custom](./rust-custom-types.md)
+- [Ownership](./rust-ownership.md)
+- [Concurrency without a GIL](./concurrency-gil.md)

@@ -1,84 +1,63 @@
-# Cargo New
+# cargo new
 
-Create a new Cargo package at a specified path (creates a new directory).
+> **TL;DR** — Run `cargo new <name>` to create a project directory and scaffold a Rust package in one step.
+
+Create a new Cargo package at a specified path — Cargo creates the directory for you.
+
+> [!NOTE]
+> `cargo new` and `cargo init` accept the same options. For the full option reference, see [Init vs New](./cargo-comparison.md).
 
 ## Basic Usage
 
 ```bash
 cargo new my_project
+cd my_project
 ```
 
-Creates a new directory called `my_project` with a Rust project inside.
+The path argument is required. A binary package is created by default.
 
-## Common Options
-
-### Binary vs Library
+## Binary or Library
 
 ```bash
-# Create a binary (application) - this is the default
-cargo new my_app --bin
-
-# Create a library
-cargo new my_lib --lib
-```
-
-### Set Package Name
-
-```bash
-# Set custom package name (different from directory name)
-cargo new my-directory --name my_package_name
-```
-
-### Specify Rust Edition
-
-```bash
-# Use a specific Rust edition
-cargo new my_project --edition 2021
-cargo new my_project --edition 2024
-
-# Available editions: 2015, 2018, 2021, 2024
-```
-
-### Version Control
-
-```bash
-# Initialize with git (default)
-cargo new my_project --vcs git
-
-# Initialize with other VCS
-cargo new my_project --vcs hg      # Mercurial
-cargo new my_project --vcs pijul   # Pijul
-cargo new my_project --vcs fossil  # Fossil
-
-# Don't initialize any VCS
-cargo new my_project --vcs none
+cargo new my_app              # binary (default)
+cargo new my_app --bin        # binary, explicit
+cargo new my_lib --lib        # library
 ```
 
 ## Examples
 
 ```bash
-# Create a binary app
+# Binary app
 cargo new hello_world
 
-# Create a library
+# Library
 cargo new my_utils --lib
 
-# Create a 2024 edition library with custom name
+# 2024 edition library with a custom package name
 cargo new my-lib --lib --edition 2024 --name my_library
 
-# Create without git initialization
+# No version control initialization
 cargo new standalone_project --vcs none
 ```
 
 ## What Gets Created
 
-A new directory with:
-- `Cargo.toml` - Package manifest
-- `src/main.rs` - Entry point for binary (if `--bin`)
-- `src/lib.rs` - Entry point for library (if `--lib`)
-- `.gitignore` - Git ignore file (if VCS is enabled)
-- `.git/` - Git repository (if VCS is git)
+A new directory containing:
 
-## Key Difference from `cargo init`
+- `Cargo.toml` — package manifest
+- `src/main.rs` — entry point (binary) or `src/lib.rs` (library)
+- `.gitignore` — ignore file (if VCS is enabled)
+- `.git/` — repository (if VCS is git)
 
-`cargo new` creates a new directory for the project, while `cargo init` initializes a project in an existing directory.
+## See also
+
+- [cargo init](./cargo-init.md) — initialize a project in an *existing* directory
+- [Init vs New](./cargo-comparison.md) — full option reference and side-by-side workflows
+
+## Try it
+
+```bash
+cargo new try-new
+cd try-new
+cargo run
+```

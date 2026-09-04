@@ -1,42 +1,40 @@
-# Cargo Init vs Cargo New - Comparison
+# Init vs New
+
+> **TL;DR** — Same scaffolding, different starting point: `init` fills the directory you're in, `new` creates one. Default to `new`.
+
+`cargo init` and `cargo new` do the same thing — scaffold a Cargo package. The only difference is the directory: `init` uses an existing one, `new` creates it.
 
 ## Quick Reference
 
 | Feature | `cargo init` | `cargo new` |
 |---------|-------------|------------|
 | **Directory** | Uses existing directory | Creates new directory |
-| **Typical Use** | Already in project folder | Starting fresh project |
-| **Path Argument** | Optional (defaults to `.`) | Required |
-| **Options** | Same as `cargo new` | Same as `cargo init` |
+| **Path argument** | Optional (defaults to `.`) | Required |
+| **Typical use** | Already in a project folder; converting an existing project to Cargo | Starting a fresh project |
+| **Options** | Same | Same |
+| **Output structure** | Same | Same |
 
-## When to Use Each
+## Shared Options (Canonical Reference)
 
-### Use `cargo init` when:
+Both commands accept these flags:
 
-- You already have a directory and want to initialize a Rust project in it
-- You're converting an existing project to use Cargo
-- You've already created and named your project directory
-
-```bash
-mkdir my_project
-cd my_project
-cargo init
-```
-
-### Use `cargo new` when:
-
-- Starting a brand new project from scratch
-- You want Cargo to create the project directory for you
-- You're creating multiple projects and want them organized
+| Flag | Values | Default |
+|------|--------|---------|
+| `--bin` / `--lib` | binary or library target | `--bin` |
+| `--edition` | `2015`, `2018`, `2021`, `2024` | toolchain default |
+| `--name` | custom package name (defaults to directory name) | directory name |
+| `--vcs` | `git`, `hg`, `pijul`, `fossil`, `none` | `git` |
+| `--registry` | registry to use | crates.io |
 
 ```bash
-cargo new my_project
-cd my_project
+# Same flags, either command:
+cargo init --lib --edition 2024 --name my_library --vcs none
+cargo new my-lib --lib --edition 2024 --name my_library --vcs none
 ```
 
-## Example Workflow Comparison
+## Workflows Side by Side
 
-### Workflow with `cargo new`
+Starting fresh — one command with `new`:
 
 ```bash
 cargo new my_app
@@ -44,7 +42,7 @@ cd my_app
 cargo run
 ```
 
-### Workflow with `cargo init`
+Same result with `init` — three steps:
 
 ```bash
 mkdir my_app
@@ -53,19 +51,9 @@ cargo init
 cargo run
 ```
 
-## Identical Features
-
-Both commands support the same options:
-
-- `--bin` / `--lib` - Choose between binary or library
-- `--edition` - Specify Rust edition (2015, 2018, 2021, 2024)
-- `--name` - Set custom package name
-- `--vcs` - Choose version control system (git, hg, pijul, fossil, none)
-- `--registry` - Specify registry to use
+Use `init` when you already have a directory (e.g. you cloned a repo or unpacked a template and want to Cargo-ify it). Otherwise prefer `new` — it's one less command.
 
 ## Both Create the Same Structure
-
-Whether you use `init` or `new`, you get:
 
 ```
 my_project/
@@ -78,12 +66,22 @@ my_project/
 
 ## Common Pattern
 
-Many developers prefer `cargo new` because it's one less command:
+Many developers default to `cargo new` because it folds directory creation into the same step:
 
 ```bash
-# Two commands
+# Three steps
 mkdir project && cd project && cargo init
 
-# One command
+# One step
 cargo new project && cd project
 ```
+
+## Key takeaways
+
+1. `init` fills the directory you are in; `new` creates one. Everything else is identical.
+2. When in doubt, use `new` — fewer steps.
+3. The shared-options table above is the canonical flag reference; the individual pages link here.
+
+## Next
+
+- [Binary vs Library](./binary-vs-library.md) — what the scaffolded `src/main.rs` vs `src/lib.rs` actually means.

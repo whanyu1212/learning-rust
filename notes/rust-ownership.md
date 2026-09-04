@@ -1,5 +1,7 @@
 # Rust Ownership
 
+> **TL;DR** — Every value has exactly one owner; when the owner drops, the value frees. This makes accidental cycles unrepresentable — you only opt into shared ownership deliberately.
+
 The core of Rust's memory safety — and the reason circular references are nearly impossible to construct by accident.
 
 ## The core rule
@@ -106,6 +108,12 @@ When the last strong `Rc` drops, the `Node` frees even if weak refs still exist.
 | `Rc` + `RefCell` | Yes | Runtime memory leak (refcount never hits 0) | Use `Weak` for back-edges |
 | `Arc` (thread-safe `Rc`) | Yes | Same leak | Use `Weak` |
 
-## Key takeaway
+## Key takeaways
 
-Rust's ownership model is designed so you *can't* create circular references by accident. When you genuinely need a cyclic structure (graphs, parent pointers), you must opt into `Rc`/`Arc` — and then it's your job to break the cycle with `Weak` on the "back" edge. The compile-time safety gives way to a runtime discipline you have to enforce yourself.
+1. One owner per value; borrows are temporary and lifetime-checked — cycles are unrepresentable by default.
+2. Need shared ownership? Reach for `Rc` (single-threaded) or `Arc` (thread-safe) — then break back-edges with `Weak`.
+3. `upgrade()` on a `Weak` returns `Option` — the parent may already be gone.
+
+## Next
+
+- [Concurrency without a GIL](./concurrency-gil.md) — how ownership scales to threads via `Send`/`Sync`.

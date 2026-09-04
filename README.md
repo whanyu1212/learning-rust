@@ -22,15 +22,21 @@ mdbook serve
 
 ## Notes
 
-### Project Setup
+### Cargo Basics
 - [cargo init](notes/cargo-init.md) — Initialize a Cargo package in an existing directory
 - [cargo new](notes/cargo-new.md) — Create a new Cargo package at a specified path
-- [cargo init vs cargo new](notes/cargo-comparison.md) — Side-by-side comparison of the two commands
+- [Init vs New](notes/cargo-comparison.md) — Side-by-side comparison of the two commands
 
 ### Project Structure
-- [Binary vs Library Projects](notes/binary-vs-library.md) — Executable programs vs reusable libraries
-- [Rust Project Organization](notes/rust-project-organization.md) — How code is laid out under `src/`
-- [Target Folder Structure](notes/target-folder.md) — Where Cargo stores build artifacts
+- [Binary vs Library](notes/binary-vs-library.md) — Executable programs vs reusable libraries
+- [Project Organization](notes/rust-project-organization.md) — How code is laid out under `src/`
+- [The target/ Folder](notes/target-folder.md) — Where Cargo stores build artifacts
 
-### Rust Concepts
-- [Rust Data Types](notes/rust-data-types.md) — Scalar and compound types, type inference
+### Language Concepts
+- [Rust for Python Programmers](notes/rust-for-python-programmers.md) — Key differences when moving from Python
+- [Tools: Rust vs Python](notes/rust-tools-vs-python-tools.md) — Everyday tooling compared
+- [Data Types: Scalars & Strings](notes/rust-data-types.md) — Scalar and compound types, `String` vs `&str`
+- [Data Types: Collections & Refs](notes/rust-collections.md) — `Vec`, `HashMap`, references, closures
+- [Data Types: Option, Result & Custom](notes/rust-custom-types.md) — Null-safety, error handling, smart pointers
+- [Ownership](notes/rust-ownership.md) — Ownership rules and circular references
+- [Concurrency without a GIL](notes/concurrency-gil.md) — Python's GIL vs Rust parallelism
